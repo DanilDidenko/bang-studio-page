@@ -1,0 +1,90 @@
+.more-btn {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    margin: 20px;
+
+}
+.more-btn:before {
+    display: block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+}
+
+.more-btn:hover:before {
+
+    width: 120px;
+    height: 50px;
+
+}
+
+.more-btn:hover:after {
+
+    width: 120px;
+    height: 50px;
+
+}
+
+
+.more-btn:after {
+    display: block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+}
+.more-span:before {
+    display: block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+}
+.more-span:after {
+    display: block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+
+.more-span:hover:before {
+
+    width: 120px;
+    height: 50px;
+
+}
+
+.more-span:hover:after {
+
+    width: 120px;
+    height: 50px;
+
+}
+
+.porfolio-card{
+    min-height: 100px;
+
+    background-color: green;
+    display: flex;
+    justify-content: center;
+}
