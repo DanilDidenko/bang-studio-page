@@ -2,19 +2,7 @@ import React from "react";
 import MainHeader from "../components/Home/MainHeader";
 import AboutSection from "../components/Home/AboutSection";
 import PortfolioSection from "../components/Home/PortfolioSection";
-import PopoverMenu from "../components/PopoverMenu";
-import ReactDOM from "react-dom";
 import ReactPageScroller from "react-page-scroller";
-
-import {
-  Link,
-  DirectLink,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller
-} from "react-scroll";
 import ContactsSection from "../components/Home/ContactsSection";
 
 export default class Home extends React.Component {
@@ -35,6 +23,8 @@ export default class Home extends React.Component {
     //   },2000)
   }
 
+  currentSection = 1;
+
   //   scrollToSection(id) {
   //     console.log(ReactDOM.findDOMNode(this.refs.second));
   //   }
@@ -45,15 +35,29 @@ export default class Home extends React.Component {
   goToPage = pageNumber => {
     this.reactPageScroller.goToPage(pageNumber);
   };
+
+  scrollSection = anchor => {
+    if (this.currentSection < 4) {
+      this.currentSection++
+      this.reactPageScroller.goToPage(+(anchor + 1));
+    }else{
+      console.log('end')
+      this.currentSection =0;
+      this.reactPageScroller.goToPage(+this.currentSection);
+    }
+
+
+  };
+
   render() {
     return (
       <div className="transition-item">
-        {window.innerHeight>500?(<ReactPageScroller ref={c => (this.reactPageScroller = c)}>  
-        <MainHeader anchor="1" />
-        <AboutSection />
-        <PortfolioSection ref="3" />
-        <ContactsSection />
-        </ReactPageScroller>):<></>}
+        <ReactPageScroller ref={c => (this.reactPageScroller = c)}>
+          <MainHeader  scrollCallback={this.scrollSection} />
+          <AboutSection  scrollCallback={this.scrollSection} />
+          <PortfolioSection  scrollCallback={this.scrollSection} />
+          <ContactsSection  scrollCallback={this.scrollSection} />
+        </ReactPageScroller>
       </div>
     );
   }

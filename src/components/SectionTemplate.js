@@ -5,6 +5,11 @@ import { openMenu, closeMenu } from "../actions";
 import { isBrowser } from "react-device-detect";
 
 class SectionTemplate extends React.Component {
+  handleScrollButton() {
+    console.log("section template event");
+    this.props.scrollSectionfromTemplate();
+  }
+
   renderSelectionList() {
     if (this.props.sectionSelection === true) {
       return (
@@ -38,7 +43,11 @@ class SectionTemplate extends React.Component {
             <div style={content}>{this.props.children}</div>
             <div style={column}>
               <div onClick={this.props.openMenu}>MENU</div>
-              <img style={arrow} src="./img/svg/arrow_dark.svg" />
+              <img
+                style={arrow}
+                onClick={this.handleScrollButton.bind(this)}
+                src="./img/svg/arrow_dark.svg"
+              />
             </div>
           </>
         ) : (
@@ -50,7 +59,12 @@ class SectionTemplate extends React.Component {
               <div onClick={this.props.openMenu}>MENU</div>
             </div>
             <div style={content}>{this.props.children}</div>
-            <img className="arrow" style={arrow} src="./img/svg/arrow_dark.svg" />
+            <img
+              className="arrow"
+              style={arrow}
+              onClick={this.handleScrollButton.bind(this)}
+              src="./img/svg/arrow_dark.svg"
+            />
           </div>
         )}
       </>
@@ -60,7 +74,7 @@ class SectionTemplate extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isOpen: state.menu.isOpen
+    popover: state.popover
   };
 };
 export default connect(
@@ -78,7 +92,7 @@ const mobileContainer = {
   width: "100%",
   height: "100%",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column"
 };
 
 const column = {
@@ -115,7 +129,5 @@ const menuRow = {
 };
 
 const arrow = {
-
-  fill: "currentColor",
-
+  fill: "currentColor"
 };

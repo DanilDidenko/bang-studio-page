@@ -4,11 +4,14 @@ import { Fade } from "react-reveal";
 
 export default class ContactsSection extends React.Component {
   state = {};
+  scrollSectionfromTemplate = () => {
+    this.props.scrollCallback(3);
+  };
   render() {
     return (
       <Fade bottom>
         <section className="section  section-fit">
-          <SectionTemplate sectionSelection={true}>
+          <SectionTemplate sectionSelection={true} scrollSectionfromTemplate={this.scrollSectionfromTemplate}>
             <div style={container}>
               <h3>Свяжитесь с нами</h3>
               <div>info@bang.studio</div>

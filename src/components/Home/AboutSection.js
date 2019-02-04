@@ -5,10 +5,14 @@ import {Fade} from 'react-reveal'
 
 export default class AboutSection extends React.Component {
   state = {};
+
+  scrollSectionfromTemplate = () =>{
+    this.props.scrollCallback(1)
+  }
   render() {
     return (
       <section className="section section-fit">
-        <SectionTemplate sectionSelection={true}>
+        <SectionTemplate sectionSelection={true} scrollSectionfromTemplate={this.scrollSectionfromTemplate}>
           {/* <WavesAnimation></WavesAnimation> */}
           <div style={content}>
             <Fade left>

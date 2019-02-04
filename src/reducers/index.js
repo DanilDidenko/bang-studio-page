@@ -1,32 +1,35 @@
 import { combineReducers } from "redux";
 
 const initialState = {
-  isOpen: false
+  popover: { isOpen: false, type: "menu" }
 };
-const menuStateReducer = (state = initialState, action) => {
-  
-  switch(action.type) {
+const popoverStateReducer = (state = initialState, action) => {
+  switch (action.type) {
     case "MENU_OPENED":
       return {
         ...state,
-        isOpen: true
-      }
+        popover: { isOpen: true, type: "menu" }
+      };
 
-    case "MENU_CLOSED":
+    case "FORM_OPENED":
       return {
         ...state,
-        isOpen: false
-      }
+        popover: { isOpen: true, type: "form" }
+      };
+
+    case "POPOVER_CLOSED":
+      return {
+        ...state,
+        popover: { isOpen: false, type: "menu" }
+      };
 
     default:
-      return state
-
+      return state;
   }
-  
 };
 
 const rootReducer = combineReducers({
- menu: menuStateReducer
+  popover: popoverStateReducer
 });
 
 export default rootReducer;

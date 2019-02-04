@@ -7,6 +7,10 @@ import { isBrowser } from "react-device-detect";
 export default class MainHeader extends React.Component {
   state = {};
 
+  scrollSectionfromTemplate = () =>{
+    this.props.scrollCallback(0)
+  }
+
   render() {
     return (
       <header className="section  section-fit" style={header}>
@@ -24,7 +28,7 @@ export default class MainHeader extends React.Component {
         ) : (
           <></>
         )}
-        <SectionTemplate>
+        <SectionTemplate scrollSectionfromTemplate={this.scrollSectionfromTemplate}>
           <div style={isBrowser ? browserContainer : mobileContainer}>
             <BangTitle />
           </div>

@@ -5,10 +5,10 @@ import "./App.css";
 import Home from "./routes/Home";
 import About from "./routes/About";
 import Contacts from "./routes/Contacts";
-import Portfolio from "./routes/Portfolio"
+import Portfolio from "./routes/Portfolio";
 import PopoverMenu from "./components/PopoverMenu";
 import { connect } from "react-redux";
-import { openMenu, closeMenu } from "./actions";
+import { openMenu, closePopover } from "./actions";
 
 const supportsHistory = "pushState" in window.history;
 
@@ -18,21 +18,17 @@ const supportsHistory = "pushState" in window.history;
 // const Portfolio = lazy(() => import('./routes/Portfolio'));
 
 class App extends Component {
-  componentDidMount() {
-    setTimeout(() => {
-      console.log(this.props);
-    }, 1000);
-  }
+
   render() {
     return (
       <Router>
         <>
-          {this.props.isOpen ? <PopoverMenu /> : <></>}
+          {this.props.popover.isOpen ? <PopoverMenu /> : <></>}
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
-            <Route path="/contact" component={Contacts}/>
-            <Route path="/portfolio" component={Portfolio}/>
+            <Route path="/contact" component={Contacts} />
+            <Route path="/portfolio" component={Portfolio} />
           </Switch>
         </>
       </Router>
@@ -41,12 +37,10 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.menu.isOpen);
-  return {
-    isOpen: state.menu.isOpen
-  };
+  return   state.popover
+  
 };
 export default connect(
   mapStateToProps,
-  { openMenu, closeMenu }
+  { openMenu, closePopover }
 )(App);

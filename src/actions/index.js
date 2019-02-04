@@ -4,9 +4,19 @@ export const openMenu = () => {
     }
 }
 
-export const closeMenu = () => {
+
+export const openForm = () => {
     return {
-        type: 'MENU_CLOSED'
+        type: 'FORM_OPENED'
     }
 }
 
+export const closePopover = () => {
+    return {
+        type: 'POPOVER_CLOSED'
+    }
+}
+
+export const scrollSecttion = () => {
+
+} 

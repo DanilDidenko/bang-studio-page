@@ -13,6 +13,12 @@ import Fade from "react-reveal/Fade";
 import PortfolioCard from "../PortfolioCard";
 
 export default class PortfolioSection extends Component {
+
+  scrollSectionfromTemplate = () =>{
+
+    this.props.scrollCallback(2)
+  }
+
   state = {
     portfolioItems: [
       {
@@ -28,7 +34,7 @@ export default class PortfolioSection extends Component {
   render() {
     return (
       <section className="section  section-fit">
-        <SectionTemplate>
+        <SectionTemplate scrollSectionfromTemplate={this.scrollSectionfromTemplate}>
           <div className="content" style={container}>
             <Fade left>
               <h2>ПОРТФОЛИО</h2>
