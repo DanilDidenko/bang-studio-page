@@ -4,59 +4,45 @@ import AboutSection from "../components/Home/AboutSection";
 import PortfolioSection from "../components/Home/PortfolioSection";
 import ReactPageScroller from "react-page-scroller";
 import ContactsSection from "../components/Home/ContactsSection";
+import queryString from "query-string";
+import { withRouter } from "react-router-dom";
 
 export default class Home extends React.Component {
-  state = { menuIsOpened: false };
-  handleClick = () => {
+  sections = ["/", "/:about", "/:portfolio", "/:contacts"];
+
+  handleScroll = page => {
     this.props.history.push({
-      pathname: "/about"
+      pathname: this.sections[page - 1]
     });
   };
 
   firstSection;
 
   componentDidMount() {
-    //   this.firstSection=React.createRef();
-    //   setTimeout(()=>{
-    //       console.log(this.firstSection.keys())
-    //     window.scroll(0, this.firstSection.offsetTop)
-    //   },2000)
+    this.reactPageScroller.goToPage(
+      this.sections.indexOf(this.props.location.pathname)
+    );
+
+    this.props.history.listen((location, action) => {
+      this.reactPageScroller.goToPage(this.sections.indexOf(location.pathname));
+    });
   }
 
-  currentSection = 1;
-
-  //   scrollToSection(id) {
-  //     console.log(ReactDOM.findDOMNode(this.refs.second));
-  //   }
-
-  //   componentDidMount() {
-  //     this.scrollToSection(1);
-  //   }
-  goToPage = pageNumber => {
-    this.reactPageScroller.goToPage(pageNumber);
-  };
-
-  scrollSection = anchor => {
-    if (this.currentSection < 4) {
-      this.currentSection++
-      this.reactPageScroller.goToPage(+(anchor + 1));
-    }else{
-      console.log('end')
-      this.currentSection =0;
-      this.reactPageScroller.goToPage(+this.currentSection);
-    }
-
-
-  };
+  
 
   render() {
     return (
       <div className="transition-item">
-        <ReactPageScroller ref={c => (this.reactPageScroller = c)}>
-          <MainHeader  scrollCallback={this.scrollSection} />
-          <AboutSection  scrollCallback={this.scrollSection} />
-          <PortfolioSection  scrollCallback={this.scrollSection} />
-          <ContactsSection  scrollCallback={this.scrollSection} />
+        <ReactPageScroller
+          pageOnChange={page => {
+            this.handleScroll(page);
+          }}
+          ref={c => (this.reactPageScroller = c)}
+        >
+          <MainHeader />
+          <AboutSection />
+          <PortfolioSection />
+          <ContactsSection />
         </ReactPageScroller>
       </div>
     );
