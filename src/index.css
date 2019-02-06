@@ -33,7 +33,6 @@ body{
 .section{
   box-sizing: border-box;
   padding: 30px;
-  min-height: 500px;
   display: flex;
   align-items: stretch;
   position: relative;
@@ -43,7 +42,6 @@ body{
 
 .section-fit{
   height: 100vh;
-  min-height: 500px;
 
 }
 

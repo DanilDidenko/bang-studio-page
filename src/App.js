@@ -10,7 +10,7 @@ import PopoverMenu from "./components/PopoverMenu";
 import { connect } from "react-redux";
 import { openMenu, closePopover } from "./actions";
 
-const supportsHistory = "pushState" in window.history;
+
 
 // const Home = lazy(() => import('./routes/Home'));
 // const About = lazy(() => import('./routes/About'));
@@ -18,14 +18,13 @@ const supportsHistory = "pushState" in window.history;
 // const Portfolio = lazy(() => import('./routes/Portfolio'));
 
 class App extends Component {
-
   render() {
     return (
       <Router>
         <>
           {this.props.popover.isOpen ? <PopoverMenu /> : <></>}
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/:section?" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contacts} />
             <Route path="/portfolio" component={Portfolio} />
@@ -37,8 +36,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return   state.popover
-  
+  return state.popover;
 };
 export default connect(
   mapStateToProps,

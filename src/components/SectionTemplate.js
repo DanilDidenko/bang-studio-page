@@ -3,23 +3,32 @@ import "./SectionTemplate.css";
 import { connect } from "react-redux";
 import { openMenu, closeMenu } from "../actions";
 import { isBrowser } from "react-device-detect";
+import { Link } from "react-router-dom";
 
 class SectionTemplate extends React.Component {
-  handleScrollButton() {
-    console.log("section template event");
-    this.props.scrollSectionfromTemplate();
+  sections = ["/", "/:about", "/:portfolio", "/:contacts"];
+
+  // handleScroll = page => {
+  //   console.log(page - 1);
+  //   this.props.history.push({
+  //     pathname: this.sections[page - 1]
+  //   });
+  // };
+  componentDidMount(){
+    console.log(this.props.context)
   }
 
   renderSelectionList() {
     if (this.props.sectionSelection === true) {
-      return (
-        <ul className="vert_menu">
-          <li className="track m_1">01</li>
-          <li className="track m_2">02</li>
-          <li className="track m_3">03</li>
-          <li className="track m_4">04</li>
-        </ul>
-      );
+      let list = this.sections.map((element, index) => {
+        return (
+          <Link to={element} key={element} className={this.props.activeSection===element?"active":""}>
+            <li className={`track m_${index + 1}`}>{`0${index + 1}`}</li>
+          </Link>
+        );
+      });
+
+      return <ul className="vert_menu">{list}</ul>;
     } else {
       return <></>;
     }
@@ -43,11 +52,13 @@ class SectionTemplate extends React.Component {
             <div style={content}>{this.props.children}</div>
             <div style={column}>
               <div onClick={this.props.openMenu}>MENU</div>
-              <img
-                style={arrow}
-                onClick={this.handleScrollButton.bind(this)}
-                src="./img/svg/arrow_dark.svg"
-              />
+              <Link to={this.props.downSectionPath}>
+                <img
+                  className="arrow"
+                  style={arrow}
+                  src="./img/svg/arrow_dark.svg"
+                />
+              </Link>
             </div>
           </>
         ) : (
@@ -59,12 +70,19 @@ class SectionTemplate extends React.Component {
               <div onClick={this.props.openMenu}>MENU</div>
             </div>
             <div style={content}>{this.props.children}</div>
-            <img
+            <Link to={this.props.downSectionPath}>
+              <img
+                className="arrow"
+                style={arrow}
+                src="./img/svg/arrow_dark.svg"
+              />
+            </Link>
+
+            {/* <img
               className="arrow"
               style={arrow}
-              onClick={this.handleScrollButton.bind(this)}
               src="./img/svg/arrow_dark.svg"
-            />
+            /> */}
           </div>
         )}
       </>

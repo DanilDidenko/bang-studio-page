@@ -8,29 +8,39 @@ import { isBrowser } from "react-device-detect";
 import BangTitle from "./BangTitle";
 
 class PopoverMenu extends React.Component {
-  state = {
-    shown: false
+  handleClick = () => {
+    this.props.history.push({
+      pathname: "/about"
+    });
   };
-
   renderMenu() {
     return (
       <Fade top>
-        <div className="option" onClick={this.props.closeMenu} style={select}>
-          <Link to={"/about"} style={select}>
-            {" "}
-            О НАС
-          </Link>
+        <div
+          className="option"
+          onClick={this.props.closePopover}
+          style={select}
+        >
+          <span style={select}> О НАС</span>
         </div>
 
-        <div className="option" onClick={this.props.closeMenu} style={select}>
+        <div
+          className="option"
+          onClick={this.props.closePopover}
+          style={select}
+        >
           <Link to={"/contact"} style={select}>
             {" "}
             КОНТАКТЫ
           </Link>
         </div>
-        <div className="option" onClick={this.props.closeMenu} style={select}>
-          <Link to={"/portfolio"} style={select}>
-            {" "}
+        <div
+          className="option"
+          onClick={this.props.closePopover}
+          style={select}
+        >
+          <Link to={{ pathname: "/:portfolio" }} style={select}>
+
             ПОРТФОЛИО
           </Link>
         </div>
