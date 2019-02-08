@@ -10,8 +10,6 @@ import PopoverMenu from "./components/PopoverMenu";
 import { connect } from "react-redux";
 import { openMenu, closePopover } from "./actions";
 
-
-
 // const Home = lazy(() => import('./routes/Home'));
 // const About = lazy(() => import('./routes/About'));
 // const Contacts = lazy(() => import('./routes/Contacts'));

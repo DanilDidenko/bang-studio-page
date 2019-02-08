@@ -6,7 +6,7 @@ import { isBrowser } from "react-device-detect";
 import { Link } from "react-router-dom";
 
 class SectionTemplate extends React.Component {
-  sections = ["/", "/:about", "/:portfolio", "/:contacts"];
+  sections = ["", "#about", "#portfolio", "#contacts"];
 
   // handleScroll = page => {
   //   console.log(page - 1);
@@ -14,15 +14,19 @@ class SectionTemplate extends React.Component {
   //     pathname: this.sections[page - 1]
   //   });
   // };
-  componentDidMount(){
-    console.log(this.props.context)
+  componentDidMount() {
+    console.log(this.props.context);
   }
 
   renderSelectionList() {
     if (this.props.sectionSelection === true) {
       let list = this.sections.map((element, index) => {
         return (
-          <Link to={element} key={element} className={this.props.activeSection===element?"active":""}>
+          <Link
+            to={{ pathname: "/", hash: element }}
+            key={element}
+            className={this.props.activeSection === element ? "active" : ""}
+          >
             <li className={`track m_${index + 1}`}>{`0${index + 1}`}</li>
           </Link>
         );

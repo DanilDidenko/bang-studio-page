@@ -8,7 +8,7 @@ import queryString from "query-string";
 import { withRouter } from "react-router-dom";
 
 export default class Home extends React.Component {
-  sections = ["/", "/:about", "/:portfolio", "/:contacts"];
+  sections = ["/", "#about", "#portfolio", "#contacts"];
 
   handleScroll = page => {
     this.props.history.push({
@@ -20,15 +20,14 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this.reactPageScroller.goToPage(
-      this.sections.indexOf(this.props.location.pathname)
+      this.sections.indexOf(this.props.location.hash)
     );
 
     this.props.history.listen((location, action) => {
-      this.reactPageScroller.goToPage(this.sections.indexOf(location.pathname));
+      console.log(this.reactPageScroller)
+      this.reactPageScroller.goToPage(this.sections.indexOf(location.hash));
     });
   }
-
-  
 
   render() {
     return (
