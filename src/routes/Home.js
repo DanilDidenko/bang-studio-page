@@ -24,7 +24,7 @@ export default class Home extends React.Component {
     );
 
     this.props.history.listen((location, action) => {
-      console.log(this.reactPageScroller)
+      console.log(this.reactPageScroller);
       this.reactPageScroller.goToPage(this.sections.indexOf(location.hash));
     });
   }

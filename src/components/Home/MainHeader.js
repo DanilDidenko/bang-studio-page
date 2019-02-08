@@ -3,15 +3,19 @@ import SectionTemplate from "../SectionTemplate";
 import CircleAnimation from "../../CircleAnimation";
 import BangTitle from "../BangTitle";
 import { isBrowser } from "react-device-detect";
+import ParticleAnimation from "../../ParticleAnimation/scripts/ParticleAnimation";
 
 export default class MainHeader extends React.Component {
   state = {};
 
-
+  componentDidMount() {
+    const Anim = new ParticleAnimation();
+    Anim.init()
+  }
   render() {
     return (
       <header className="section  section-fit" style={header}>
-        {isBrowser ? (
+        {/* {isBrowser ? (
           <CircleAnimation
           activeSection="/"
             style={{
@@ -25,8 +29,9 @@ export default class MainHeader extends React.Component {
           />
         ) : (
           <></>
-        )}
-        <SectionTemplate downSectionPath="/:about" >
+        )} */}
+        <div className="animation-container" />
+        <SectionTemplate downSectionPath="/:about">
           <div style={isBrowser ? browserContainer : mobileContainer}>
             <BangTitle />
           </div>
