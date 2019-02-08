@@ -10,7 +10,7 @@ export default class MainHeader extends React.Component {
 
   componentDidMount() {
     const Anim = new ParticleAnimation();
-    Anim.init()
+    Anim.init();
   }
   render() {
     return (
