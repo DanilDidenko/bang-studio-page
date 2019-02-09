@@ -294,7 +294,7 @@ module.exports = function(webpackEnv) {
         // First, run the linter.
         // It's important to do this before Babel processes the JS.
         {
-          test: /\.(js|mjs|jsx)$/,
+          test: /\.(js|mjs|jsx|glsl|vert|frag)$/,
           enforce: 'pre',
           use: [
             {
@@ -307,6 +307,14 @@ module.exports = function(webpackEnv) {
             },
           ],
           include: paths.appSrc,
+        },
+        {
+          test: /\.(glsl|frag|vert)$/,
+          use: [
+            require.resolve('raw-loader'),
+            require.resolve('glslify-loader'),
+            require.resolve('glslify-import-loader')
+          ]
         },
         {
           // "oneOf" will traverse all following loaders until one will

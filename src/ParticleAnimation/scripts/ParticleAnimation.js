@@ -74,3 +74,4 @@ export default class ParticleAnimation {
     this.webgl.next();
   }
 }
+

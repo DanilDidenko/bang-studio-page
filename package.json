@@ -31,6 +31,8 @@
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.0",
     "glsl-noise": "0.0.0",
+    "glslify": "^7.0.0",
+    "glslify-import-loader": "^0.1.2",
     "glslify-loader": "^2.0.0",
     "gsap": "^2.0.2",
     "history": "^4.7.2",
