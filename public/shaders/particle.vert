@@ -1,5 +1,4 @@
 // @author brunoimbrizi / http://brunoimbrizi.com
-
 precision highp float;
 
 attribute float pindex;

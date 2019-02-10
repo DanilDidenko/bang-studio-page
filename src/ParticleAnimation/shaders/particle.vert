@@ -1,6 +1,5 @@
 // @author brunoimbrizi / http://brunoimbrizi.com
-
-precision ;highp ;float;
+precision highp float;
 
 attribute float pindex;
 attribute vec3 position;
