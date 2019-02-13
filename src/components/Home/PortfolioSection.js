@@ -3,8 +3,6 @@ import {
   CarouselProvider,
   Slider,
   Slide,
-  ButtonBack,
-  ButtonNext,
   DotGroup
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
@@ -27,38 +25,45 @@ export default class PortfolioSection extends Component {
 
   render() {
     return (
-      <section className="section  section-fit">
-        <SectionTemplate downSectionPath="/:contacts" sectionSelection={true} activeSection="/:portfolio">
-          <div className="content" style={container}>
-            <Fade left>
-              <h2>ПОРТФОЛИО</h2>
-            </Fade>
-            <Fade right>
-              <div style={{ width: "100%", height: "100%" }}>
-                <CarouselProvider
-                  naturalSlideWidth={100}
-                  naturalSlideHeight={125}
-                  totalSlides={3}
-                >
-                  <Slider>
-                    <Slide index={0}>I am the first Slide.</Slide>
-                    <Slide index={1}>I am the second Slide.</Slide>
-                    <Slide index={2}>I am the third Slide.</Slide>
-                  </Slider>
-                  <ButtonBack>Back</ButtonBack>
-                  <ButtonNext>Next</ButtonNext>
-                </CarouselProvider>
-              </div>
-            </Fade>
-          </div>
-        </SectionTemplate>
-      </section>
+      <SectionTemplate
+        downSectionPath="#contacts"
+        sectionSelection={true}
+        activeSection="#portfolio"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
+        <Fade left>
+          <h2>ПОРТФОЛИО</h2>
+        </Fade>
+
+        <CarouselProvider
+        style ={{width:'100%', height:'100%'}}
+          totalSlides={3}
+          naturalSlideWidth={100}
+          naturalSlideHeight={100}
+        >
+          <Slider style={container}>
+            <Slide index={0} style={{ backgroundColor: "red" }}>
+              <PortfolioCard></PortfolioCard>
+            </Slide>
+            <Slide index={1}><PortfolioCard></PortfolioCard></Slide>
+            <Slide index={2}><PortfolioCard></PortfolioCard></Slide>
+          </Slider>
+          <DotGroup />
+        </CarouselProvider>
+      </SectionTemplate>
     );
   }
 }
 
 const container = {
+  boxSizing: 'content-box',
   width: "100%",
   height: "100%",
+  margin: '0 200px',
+
   boxSizing: "border-box"
 };

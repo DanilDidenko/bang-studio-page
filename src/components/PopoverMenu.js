@@ -16,21 +16,21 @@ class PopoverMenu extends React.Component {
   renderMenu() {
     return (
       <Fade top>
-        <div
-          className="option"
-          onClick={this.props.closePopover}
-          style={select}
-        >
-          <span style={select}> О НАС</span>
-        </div>
-
+        <Link to={{ pathname: "/about" }} style={select}>
+          <div
+            className="option"
+            onClick={this.props.closePopover}
+            style={select}
+          >
+            <span style={select}> О НАС</span>
+          </div>
+        </Link>
         <div
           className="option"
           onClick={this.props.closePopover}
           style={select}
         >
           <Link to={"/contact"} style={select}>
-            {" "}
             КОНТАКТЫ
           </Link>
         </div>
@@ -39,8 +39,7 @@ class PopoverMenu extends React.Component {
           onClick={this.props.closePopover}
           style={select}
         >
-          <Link to={{ pathname: "/:portfolio" }} style={select}>
-
+          <Link to={{ pathname: "/", hash: "#portfolio" }} style={select}>
             ПОРТФОЛИО
           </Link>
         </div>
@@ -83,6 +82,7 @@ class PopoverMenu extends React.Component {
   render() {
     const popover = {
       color: "black",
+      overflow: 'scroll',
       position: "fixed",
       width: "100%",
       height: "100%",

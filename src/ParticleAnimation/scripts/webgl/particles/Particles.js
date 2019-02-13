@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { TweenLite } from "gsap/TweenMax";
 import TouchTexture from "./TouchTexture";
-import glslify from "glslify";
 
 export default class Particles {
   constructor(webgl) {
@@ -56,8 +55,6 @@ export default class Particles {
       for (let i = 0; i < this.numPoints; i++) {
         if (originalColors[i * 4 + 0] > threshold) numVisible++;
       }
-
-      // console.log('numVisible', numVisible, this.numPoints);
     }
 
     const uniforms = {
@@ -254,8 +251,6 @@ export default class Particles {
       // blending: THREE.AdditiveBlending
     });
 
-    console.log(material)
-
     const geometry = new THREE.InstancedBufferGeometry();
 
     // positions
@@ -310,7 +305,7 @@ export default class Particles {
     );
 
     this.object3D = new THREE.Mesh(geometry, material);
-    console.log(this.object3D);
+
     this.container.add(this.object3D);
   }
 

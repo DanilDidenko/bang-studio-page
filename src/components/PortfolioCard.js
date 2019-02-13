@@ -3,10 +3,6 @@ import "./PortfolioCard.css";
 
 export default class PortfolioCard extends React.Component {
   render() {
-    const card = {
-      display: "flex",
-      flexDirection: this.props.row === "reverse" ? "row-reverse" : "row"
-    };
     return (
       <div
         className="porfolio-card"
@@ -24,7 +20,7 @@ export default class PortfolioCard extends React.Component {
         </div>
 
         <div>
-          <img src="./img/10.jpg" />
+          <img src={this.props.imgSrc} />
         </div>
       </div>
     );

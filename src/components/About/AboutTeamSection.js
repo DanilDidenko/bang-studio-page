@@ -1,6 +1,6 @@
 import React from "react";
 import SectionTemplate from "../SectionTemplate";
-import WavesAnimation from "../../WavesAnimation";
+
 
 export default class AboutTeamSection extends React.Component {
   state = {};

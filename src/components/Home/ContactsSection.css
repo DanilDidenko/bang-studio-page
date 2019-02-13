@@ -1,0 +1,75 @@
+.media {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  flex-grow: 1;
+  align-items: flex-end;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-icon:after {
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  left: 50%;
+  position: absolute;
+  bottom: -40px;
+  content: "";
+  opacity: 0;
+}
+
+.nav-icon:hover:after {
+  opacity: 1;
+  bottom: -20px;
+  transition: 0.5s opacity, 0.2s bottom;
+}
+.contacts-info {
+  flex-grow: 2;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-us {
+  font-size: 14px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.8;
+  letter-spacing: 6px;
+  text-align: left;
+  color: #131116;
+}
+
+.contact-email {
+  font-size: 50px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.14;
+}
+
+.contact-telegram {
+  font-size: 14px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  margin: 5px;
+  line-height: 1;
+  letter-spacing: 4.8px;
+}
+
+.contact-phone {
+  font-size: 20px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.8;
+  letter-spacing: normal;
+}

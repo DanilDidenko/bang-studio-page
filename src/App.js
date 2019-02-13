@@ -4,7 +4,6 @@ import React, { Component, Suspense, lazy } from "react";
 import "./App.css";
 import Home from "./routes/Home";
 import About from "./routes/About";
-import Contacts from "./routes/Contacts";
 import Portfolio from "./routes/Portfolio";
 import PopoverMenu from "./components/PopoverMenu";
 import { connect } from "react-redux";
@@ -16,18 +15,25 @@ import { openMenu, closePopover } from "./actions";
 // const Portfolio = lazy(() => import('./routes/Portfolio'));
 
 class App extends Component {
+  handleScroll(e) {
+    if (this.props.popover.isOpen) e.preventDefault();
+  }
   render() {
     return (
       <Router>
-        <>
+        <div
+          onWheel={this.handleScroll.bind(this)}
+          className={
+            "wrapper " + (this.props.popover.isOpen ? "scroll-lock" : "")
+          }
+        >
           {this.props.popover.isOpen ? <PopoverMenu /> : <></>}
           <Switch>
-            <Route exact path="/:section?" component={Home} />
+            <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
-            <Route path="/contact" component={Contacts} />
             <Route path="/portfolio" component={Portfolio} />
           </Switch>
-        </>
+        </div>
       </Router>
     );
   }

@@ -1,63 +1,41 @@
 import React from "react";
 import SectionTemplate from "../SectionTemplate";
-import CircleAnimation from "../../CircleAnimation";
 import BangTitle from "../BangTitle";
 import { isBrowser } from "react-device-detect";
+import "./PortfolioSection.css";
 import ParticleAnimation from "../../ParticleAnimation/scripts/ParticleAnimation";
 
 export default class MainHeader extends React.Component {
   state = {};
 
-  componentDidMount() {
-    const Anim = new ParticleAnimation();
-    Anim.init();
-  }
+  // componentDidMount() {}
+
+  // startAnimation() {
+  //   if (isBrowser && !this.Anim) {
+  //     this.Anim = new ParticleAnimation();
+  //     this.Anim.init();
+  //   }
+  // }
+
+  // stopAnimation() {
+  //   setTimeout(() => {
+  //     this.Anim = null;
+  //   });
+  // }
+
   render() {
     return (
-      <header className="section  section-fit" style={header}>
-        {/* {isBrowser ? (
-          <CircleAnimation
-          activeSection="/"
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom:0,
-              margin: "auto"
-            }}
-          />
-        ) : (
-          <></>
-        )} */}
-        <div className="animation-container" />
-        <SectionTemplate downSectionPath="/:about">
-          <div style={isBrowser ? browserContainer : mobileContainer}>
-            <BangTitle />
-          </div>
-        </SectionTemplate>
-      </header>
+      <SectionTemplate
+        downSectionPath="#about"
+        style={{ backgroundColor: "#131116" }}
+        animation={true}
+      >
+        {/* {isBrowser ? <div className="animation-container" style={{position:'absolute'}} /> : <></>} */}
+
+        <BangTitle
+          style={{ position: "absolute", bottom: "70px", left: 0, right: 0 }}
+        />
+      </SectionTemplate>
     );
   }
 }
-
-const browserContainer = {
-  position: "absolute",
-  bottom: 0,
-  width: "100%",
-  textAlign: "center"
-};
-
-const mobileContainer = {
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  textAlign: "center",
-  flexDirection: "column",
-  justifyContent: "center"
-};
-
-const header = {
-  color: "white",
-  backgroundColor: "#131116"
-};

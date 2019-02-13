@@ -4,15 +4,18 @@ import AboutSection from "../components/Home/AboutSection";
 import PortfolioSection from "../components/Home/PortfolioSection";
 import ReactPageScroller from "react-page-scroller";
 import ContactsSection from "../components/Home/ContactsSection";
-import queryString from "query-string";
-import { withRouter } from "react-router-dom";
 
 export default class Home extends React.Component {
-  sections = ["/", "#about", "#portfolio", "#contacts"];
+  sections = ["", "#about", "#portfolio", "#contacts"];
 
+  constructor(props) {
+    super(props)
+  }
   handleScroll = page => {
+    console.log(page - 1);
     this.props.history.push({
-      pathname: this.sections[page - 1]
+      pathname: "/",
+      hash: this.sections[page - 1]
     });
   };
 
@@ -23,8 +26,8 @@ export default class Home extends React.Component {
       this.sections.indexOf(this.props.location.hash)
     );
 
+
     this.props.history.listen((location, action) => {
-      console.log(this.reactPageScroller);
       this.reactPageScroller.goToPage(this.sections.indexOf(location.hash));
     });
   }

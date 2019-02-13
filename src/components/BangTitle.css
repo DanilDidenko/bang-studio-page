@@ -1,0 +1,16 @@
+.bang-title {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+@media screen and (max-width: 1000px) {
+    .bang-title {
+        display: none;
+    }
+}

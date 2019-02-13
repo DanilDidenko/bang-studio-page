@@ -1,73 +1,59 @@
-
-body{
-  font-family: 'Open Sans', sans-serif;
+* {
+  font-family: Roboto;
   line-height: 1.6;
+  margin:0;
+  padding:0;
 }
-
-.transition-wrapper {
-    position: relative;
-    z-index: 1;
-  }
-  .transition-wrapper .transition-item {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    transition: transform 0.5s;
-  }
-  .transition-wrapper.transition-appear.transition-appear-active {
-    transform: translate3d(0, 0, 0);
-  }
-  .transition-wrapper.transition-appear {
-    transform: translate3d(100%, 0, 0);
-  }
-  .transition-wrapper.transition-leave {
-    transform: translate3d(0, 0, 0);
-  }
-  .transition-wrapper.transition-leave.transition-leave-active {
-    transform: translate3d(-100%, 0, 0);
-  }
-
-
-
-.section{
-  box-sizing: border-box;
-  padding: 30px;
-  display: flex;
-  align-items: stretch;
-  position: relative;
+section{
   overflow: hidden;
 }
 
-
-.section-fit{
-  height: 100vh;
-
+.transition-wrapper {
+  position: relative;
+  z-index: 1;
+}
+.transition-wrapper .transition-item {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  transition: transform 0.5s;
+}
+.transition-wrapper.transition-appear.transition-appear-active {
+  transform: translate3d(0, 0, 0);
+}
+.transition-wrapper.transition-appear {
+  transform: translate3d(100%, 0, 0);
+}
+.transition-wrapper.transition-leave {
+  transform: translate3d(0, 0, 0);
+}
+.transition-wrapper.transition-leave.transition-leave-active {
+  transform: translate3d(-100%, 0, 0);
 }
 
-.info{
+.info {
   font-size: 24px;
   font-weight: 300;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   max-width: 60%;
   text-align: center;
 }
 .arrow {
-  animation: scroll .5s ease-in alternate infinite;
-  transform: rotate(-90)
+  animation: scroll 0.5s ease-in alternate infinite;
+  transform: rotate(-90);
 }
-  @keyframes scroll {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(10px);
-    }
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
 }
 
-
-a{
-  color: inherit
+a {
+  color: inherit;
 }
 
 a:link {
@@ -86,62 +72,11 @@ a:active {
   text-decoration: none;
 }
 
-
-@font-face {
-	font-family: "RobotoRegular";
-	src: url("fonts/RobotoRegular/RobotoRegular.eot");
-	src: url("fonts/RobotoRegular/RobotoRegular.eot?#iefix") format("embedded-opentype"),
-			 url("fonts/RobotoRegular/RobotoRegular.woff") format("woff"),
-			 url("fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
-	font-style: normal;
-	font-weight: normal;
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+  background: transparent;  /* optional: just make scrollbar invisible */
 }
 
-@font-face {
-	font-family: "AvenirThin";
-	src: url("fonts/AvenirThin/AvenirNextCyr-Thin.eot");
-	src: url("fonts/AvenirThin/AvenirNextCyr-Thin.eot?#iefix") format("embedded-opentype"),
-			 url("fonts/AvenirThin/AvenirNextCyr-Thin.woff") format("woff"),
-			 url("fonts/AvenirThin/AvenirNextCyr-Thin.ttf") format("truetype");
-	font-style: normal;
-	font-weight: normal;
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
 }
-@font-face {
-	font-family: "AvenirRegular";
-	src: url("fonts/AvenirRegular/AvenirNextCyr-Regular.eot");
-	src: url("fonts/AvenirRegular/AvenirNextCyr-Regular.eot?#iefix") format("embedded-opentype"),
-			 url("fonts/AvenirRegular/AvenirNextCyr-Regular.woff") format("woff"),
-			 url("fonts/AvenirRegular/AvenirNextCyr-Regular.ttf") format("truetype");
-	font-style: normal;
-	font-weight: normal;
-}
-@font-face {
-	font-family: "AvenirLight";
-	src: url("fonts/AvenirLight/AvenirNextCyr-Light.eot");
-	src: url("fonts/AvenirLight/AvenirNextCyr-Light.eot?#iefix") format("embedded-opentype"),
-			 url("fonts/AvenirLight/AvenirNextCyr-Light.woff") format("woff"),
-			 url("fonts/AvenirLight/AvenirNextCyr-Light.ttf") format("truetype");
-	font-style: normal;
-	font-weight: normal;
-}
-@font-face {
-	font-family: "AvenirDemi";
-	src: url("fonts/AvenirDemi/AvenirNextCyr-Demi.eot");
-	src: url("fonts/AvenirDemi/AvenirNextCyr-Demi.eot?#iefix") format("embedded-opentype"),
-			 url("fonts/AvenirDemi/AvenirNextCyr-Demi.woff") format("woff"),
-			 url("fonts/AvenirDemi/AvenirNextCyr-Demi.ttf") format("truetype");
-	font-style: normal;
-	font-weight: normal;
-}
-@font-face {
-	font-family: "AvenirMedium";
-	src: url("fonts/AvenirMedium/AvenirNextCyr-Medium.eot");
-	src: url("fonts/AvenirMedium/AvenirNextCyr-Medium.eot?#iefix") format("embedded-opentype"),
-			 url("fonts/AvenirMedium/AvenirNextCyr-Medium.woff") format("woff"),
-			 url("fonts/AvenirMedium/AvenirNextCyr-Medium.ttf") format("truetype");
-	font-style: normal;
-	font-weight: normal;
-}
-
-
-

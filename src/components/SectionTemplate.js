@@ -1,38 +1,64 @@
 import React from "react";
 import "./SectionTemplate.css";
 import { connect } from "react-redux";
-import { openMenu, closeMenu } from "../actions";
+import { openMenu } from "../actions";
 import { isBrowser } from "react-device-detect";
 import { Link } from "react-router-dom";
+import ParticleAnimation from "../ParticleAnimation/scripts/ParticleAnimation";
 
 class SectionTemplate extends React.Component {
-  sections = ["", "#about", "#portfolio", "#contacts"];
+  sections = [
+    { hash: "", name: "Bang studio" },
+    { hash: "#about", name: "Портфолио" },
+    { hash: "#portfolio", name: "Портфолио" },
+    { hash: "#contact", name: "Контакты" }
+  ];
 
-  // handleScroll = page => {
-  //   console.log(page - 1);
-  //   this.props.history.push({
-  //     pathname: this.sections[page - 1]
-  //   });
-  // };
+  state = {
+    overedOption: null
+  };
   componentDidMount() {
-    console.log(this.props.context);
+    if (this.props.animation) {
+      if (isBrowser && !this.Anim) {
+        this.Anim = new ParticleAnimation();
+        this.Anim.init();
+      }
+    }
   }
+
+  handleMouseOver = index => {
+    this.setState({
+      ...this.state,
+      overedOption: index
+    });
+  };
 
   renderSelectionList() {
     if (this.props.sectionSelection === true) {
       let list = this.sections.map((element, index) => {
         return (
           <Link
-            to={{ pathname: "/", hash: element }}
-            key={element}
-            className={this.props.activeSection === element ? "active" : ""}
+            to={{ pathname: "/", hash: element.hash }}
+            key={index}
+            className={
+              this.props.activeSection === element.hash
+                ? `active selection-option`
+                : `selection-option`
+            }
           >
-            <li className={`track m_${index + 1}`}>{`0${index + 1}`}</li>
+            <li
+              onMouseEnter={this.handleMouseOver.bind(this, index)}
+              onMouseLeave={this.handleMouseOver.bind(this, null)}
+              className={`track m_${index + 1}`}
+            >
+              <span className="option-number">{`0${index + 1}`}</span>
+              <span className="option-text">{element.name}</span>
+            </li>
           </Link>
         );
       });
 
-      return <ul className="vert_menu">{list}</ul>;
+      return <ul className="section-select-menu">{list}</ul>;
     } else {
       return <></>;
     }
@@ -40,56 +66,38 @@ class SectionTemplate extends React.Component {
 
   render() {
     return (
-      <>
-        {isBrowser ? (
-          <>
-            <div style={column}>
-              <div style={bang}>
-                <img src="./img/svg/BANG.svg" />
-              </div>
-              {this.renderSelectionList()}
-              <div style={bangStudio}>
-                BANG <br />
-                STUDIO
-              </div>
-            </div>
-            <div style={content}>{this.props.children}</div>
-            <div style={column}>
-              <div onClick={this.props.openMenu}>MENU</div>
-              <Link to={this.props.downSectionPath}>
-                <img
-                  className="arrow"
-                  style={arrow}
-                  src="./img/svg/arrow_dark.svg"
-                />
-              </Link>
-            </div>
-          </>
+      <section style={this.props.sectionStyle} className="full-page-section">
+        {isBrowser && this.props.animation ? (
+          <div
+            className="animation-container"
+            style={{ position: "absolute" }}
+          />
         ) : (
-          <div style={mobileContainer}>
-            <div style={menuRow}>
-              <div style={bang}>
-                <img src="./img/svg/BANG.svg" height="36px" />
-              </div>
-              <div onClick={this.props.openMenu}>MENU</div>
-            </div>
-            <div style={content}>{this.props.children}</div>
-            <Link to={this.props.downSectionPath}>
-              <img
-                className="arrow"
-                style={arrow}
-                src="./img/svg/arrow_dark.svg"
-              />
-            </Link>
-
-            {/* <img
-              className="arrow"
-              style={arrow}
-              src="./img/svg/arrow_dark.svg"
-            /> */}
-          </div>
+          <></>
         )}
-      </>
+        <div className="nav-column left-nav-column">
+          <img className="bang-logo" src="./img/svg/BANG.svg" />
+          {this.renderSelectionList()}
+          <div className="bang-text-botom">
+            BANG <br />
+            WEB STUDIO
+          </div>
+        </div>
+        <div className="full-page-section-content" style={this.props.style}>
+          {this.props.children}
+        </div>
+        <div className="nav-column right-nav-column">
+          <div onClick={this.props.openMenu}>MENU</div>
+          {this.props.downSectionPath ? (
+            <Link className="arrow arrow-side" to={this.props.downSectionPath}>
+              <img className="" src="./img/svg/arrow_dark.svg" />
+              )}
+            </Link>
+          ) : (
+            <></>
+          )}
+        </div>
+      </section>
     );
   }
 }
@@ -103,53 +111,3 @@ export default connect(
   mapStateToProps,
   { openMenu }
 )(SectionTemplate);
-
-const browserContainer = {
-  width: "100%",
-  height: "100%",
-  display: "flex"
-};
-
-const mobileContainer = {
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  flexDirection: "column"
-};
-
-const column = {
-  zIndex: 10,
-  flexGrow: "0",
-  display: "flex",
-  width: "70px",
-  justifyContent: "space-between",
-  flexDirection: "column"
-};
-
-const content = {
-  zIndex: 10,
-  flexGrow: "1",
-  position: "relative"
-};
-
-const bang = {
-  zIndex: 10,
-  fontSize: "36px"
-};
-
-const bangStudio = {
-  fontWeight: "400",
-  fontSize: "16px",
-  lineHeight: "20px"
-};
-
-//mobile styles
-
-const menuRow = {
-  display: "flex",
-  justifyContent: "space-between"
-};
-
-const arrow = {
-  fill: "currentColor"
-};

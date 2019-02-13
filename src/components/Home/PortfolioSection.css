@@ -1,0 +1,26 @@
+.carousel__dot {
+  background-color: red;
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  transition: height 0.2s, width 0.2s, margin 0.2s;
+  margin: 0 4px;
+}
+
+.carousel__dot:hover {
+  width: 18px;
+  height: 18px;
+}
+
+.carousel__dot--selected {
+  cursor: auto;
+  width: 18px;
+  height: 18px;
+}
+
+.carousel__dot-group {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
