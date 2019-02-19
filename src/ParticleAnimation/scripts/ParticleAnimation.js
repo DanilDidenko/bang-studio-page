@@ -2,7 +2,10 @@ import WebGLView from "./webgl/WebGLView";
 import GUIView from "./gui/GUIView";
 
 export default class ParticleAnimation {
-  constructor() {}
+  constructor(animContainer, imagesArray) {
+    this.animContainer = animContainer;
+    this.imagesArray = imagesArray;
+  }
 
   init() {
     this.initWebGL();
@@ -14,9 +17,7 @@ export default class ParticleAnimation {
 
   initWebGL() {
     this.webgl = new WebGLView(this);
-    document
-      .querySelector(".animation-container")
-      .appendChild(this.webgl.renderer.domElement);
+    this.animContainer.appendChild(this.webgl.renderer.domElement);
   }
 
   initGUI() {

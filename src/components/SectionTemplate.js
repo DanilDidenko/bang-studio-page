@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { openMenu } from "../actions";
 import { isBrowser } from "react-device-detect";
 import { Link } from "react-router-dom";
-import ParticleAnimation from "../ParticleAnimation/scripts/ParticleAnimation";
 
 class SectionTemplate extends React.Component {
   sections = [
@@ -17,14 +16,6 @@ class SectionTemplate extends React.Component {
   state = {
     overedOption: null
   };
-  componentDidMount() {
-    if (this.props.animation) {
-      if (isBrowser && !this.Anim) {
-        this.Anim = new ParticleAnimation();
-        this.Anim.init();
-      }
-    }
-  }
 
   handleMouseOver = index => {
     this.setState({
@@ -66,15 +57,11 @@ class SectionTemplate extends React.Component {
 
   render() {
     return (
-      <section style={this.props.sectionStyle} className="full-page-section">
-        {isBrowser && this.props.animation ? (
-          <div
-            className="animation-container"
-            style={{ position: "absolute" }}
-          />
-        ) : (
-          <></>
-        )}
+      <section
+        id={this.props.id}
+        style={this.props.sectionStyle}
+        className="full-page-section"
+      >
         <div className="nav-column left-nav-column">
           <img className="bang-logo" src="./img/svg/BANG.svg" />
           {this.renderSelectionList()}
@@ -83,15 +70,17 @@ class SectionTemplate extends React.Component {
             WEB STUDIO
           </div>
         </div>
-        <div className="full-page-section-content" style={this.props.style}>
+        <div
+          className="full-page-section-content"
+          style={this.props.contentStyle}
+        >
           {this.props.children}
         </div>
         <div className="nav-column right-nav-column">
           <div onClick={this.props.openMenu}>MENU</div>
           {this.props.downSectionPath ? (
             <Link className="arrow arrow-side" to={this.props.downSectionPath}>
-              <img className="" src="./img/svg/arrow_dark.svg" />
-              )}
+              <img className="" src="./img/svg/arrow-light.svg" />
             </Link>
           ) : (
             <></>

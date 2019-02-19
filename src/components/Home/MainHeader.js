@@ -8,32 +8,53 @@ import ParticleAnimation from "../../ParticleAnimation/scripts/ParticleAnimation
 export default class MainHeader extends React.Component {
   state = {};
 
+  constructor(props) {
+    super(props);
+  }
+
   // componentDidMount() {}
 
-  // startAnimation() {
-  //   if (isBrowser && !this.Anim) {
-  //     this.Anim = new ParticleAnimation();
-  //     this.Anim.init();
-  //   }
-  // }
-
-  // stopAnimation() {
-  //   setTimeout(() => {
-  //     this.Anim = null;
-  //   });
-  // }
+  componentDidMount() {
+    this.child = document.querySelector(".animation-container");
+    if (isBrowser && !this.Anim) {
+      setTimeout(() => {
+        this.Anim = new ParticleAnimation(this.child, [
+          "./img/sample-01.png",
+          "./img/sample-02.png",
+          "./img/sample-03.png",
+          "./img/sample-04.png",
+          "./img/sample-05.png"
+        ]);
+        this.Anim.init();
+      });
+    }
+  }
 
   render() {
     return (
       <SectionTemplate
+        id="header"
         downSectionPath="#about"
-        style={{ backgroundColor: "#131116" }}
+        sectionStyle={{
+          backgroundColor: "#131116",
+          color: "white",
+          height: "100vh",
+          width: "100vw"
+        }}
         animation={true}
       >
-        {/* {isBrowser ? <div className="animation-container" style={{position:'absolute'}} /> : <></>} */}
+        {isBrowser ? (
+          <div
+
+            className="animation-container"
+            style={{ width: "100%", height: "100%" }}
+          />
+        ) : (
+          <></>
+        )}
 
         <BangTitle
-          style={{ position: "absolute", bottom: "70px", left: 0, right: 0 }}
+          style={{ position: "absolute", bottom: "0", left: 0, right: 0 }}
         />
       </SectionTemplate>
     );

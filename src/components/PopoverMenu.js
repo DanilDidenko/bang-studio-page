@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Fade } from "react-reveal";
 import { isBrowser } from "react-device-detect";
-import BangTitle from "./BangTitle";
+import { throws } from "assert";
 
 class PopoverMenu extends React.Component {
   handleClick = () => {
@@ -15,7 +15,7 @@ class PopoverMenu extends React.Component {
   };
   renderMenu() {
     return (
-      <Fade top>
+      <>
         <Link to={{ pathname: "/about" }} style={select}>
           <div
             className="option"
@@ -43,7 +43,7 @@ class PopoverMenu extends React.Component {
             ПОРТФОЛИО
           </Link>
         </div>
-      </Fade>
+      </>
     );
   }
 
@@ -79,28 +79,17 @@ class PopoverMenu extends React.Component {
       </Fade>
     );
   }
-  render() {
-    const popover = {
-      color: "black",
-      overflow: 'scroll',
-      position: "fixed",
-      width: "100%",
-      height: "100%",
-      opacity: 0.8,
-      backgroundColor: "#f3f3f3",
-      zIndex: "30",
-      left: 0,
-      top: 0,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: isBrowser ? "row" : "column"
-    };
 
+  render() {
     return (
-      <div style={popover}>
+      <div
+        className={
+          "popover " +
+          (this.props.popover.isOpen ? "popover-visible" : "popover-hidden")
+        }
+      >
         <span className="close-btn" onClick={this.props.closePopover}>
-          X
+          ×{" "}
         </span>
         {this.props.popover.type === "menu"
           ? this.renderMenu()

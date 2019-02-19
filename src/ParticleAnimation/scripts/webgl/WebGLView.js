@@ -8,13 +8,7 @@ export default class WebGLView {
   constructor(app) {
     this.app = app;
 
-    this.samples = [
-      "./img/sample-01.png",
-      "./img/sample-02.png",
-      "./img/sample-03.png",
-      "./img/sample-04.png",
-      "./img/sample-05.png"
-    ];
+    this.samples = this.app.imagesArray;
 
     this.initThree();
     this.initParticles();
@@ -31,7 +25,7 @@ export default class WebGLView {
     // camera
     this.camera = new THREE.PerspectiveCamera(
       50,
-      window.innerWidth / window.innerHeight,
+      this.app.animContainer.clientWidth / this.app.animContainer.clientHeight,
       1,
       10000
     );
@@ -97,7 +91,8 @@ export default class WebGLView {
 
   resize() {
     if (!this.renderer) return;
-    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.aspect =
+      this.app.animContainer.clientWidth / this.app.animContainer.clientHeight;
     this.camera.updateProjectionMatrix();
 
     this.fovHeight =
@@ -105,7 +100,10 @@ export default class WebGLView {
       Math.tan((this.camera.fov * Math.PI) / 180 / 2) *
       this.camera.position.z;
 
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(
+      this.app.animContainer.clientWidth,
+      this.app.animContainer.clientHeight
+    );
 
     if (this.interactive) this.interactive.resize();
     if (this.particles) this.particles.resize();

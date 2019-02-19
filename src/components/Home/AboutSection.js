@@ -9,7 +9,10 @@ export default class AboutSection extends React.Component {
   render() {
     return (
       <SectionTemplate
+        id ='about'
         sectionSelection={true}
+        sectionStyle={{ backgroundColor: "#ffffff", color:'#131116' ,  height: '100vh',
+        width: '100vw'}}
         downSectionPath="#portfolio"
         activeSection="#about"
       >

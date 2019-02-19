@@ -2,27 +2,39 @@ import React from "react";
 import SectionTemplate from "../SectionTemplate";
 import { Fade } from "react-reveal";
 import "./ContactsSection.css";
+import { connect } from "react-redux";
+import { openForm } from "../../actions";
 
-export default class ContactsSection extends React.Component {
+class ContactsSection extends React.Component {
   state = {};
 
   render() {
     return (
-      <Fade bottom>
-        <SectionTemplate
-          activeSection="#contacts"
-          sectionSelection={true}
-          downSectionPath="/"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "50px 150px"
-          }}
-        >
+      <SectionTemplate
+        id="contacts"
+        activeSection="#contacts"
+        sectionSelection={true}
+        sectionStyle={{
+          backgroundColor: "#ffffff",
+          color: "#131116",
+          height: "100vh",
+          width: "100vw"
+        }}
+        downSectionPath="/"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 150px"
+        }}
+      >
+        {" "}
+        <Fade bottom>
           <div className="contacts-info">
-            <h3 className="contact-us">СВЯЖИТЕСЬ С НАМИ</h3>
+            <h3 onClick={this.props.openForm.bind(this)} className="contact-us">
+              СВЯЖИТЕСЬ С НАМИ
+            </h3>
             <div className="contact-email">info@bang.studio</div>
             <div>
               <p className="contact-telegram">Telegram</p>
@@ -66,9 +78,19 @@ export default class ContactsSection extends React.Component {
                 height="20px"
               />
             </a>
-          </div>
-        </SectionTemplate>
-      </Fade>
+          </div>{" "}
+        </Fade>
+      </SectionTemplate>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    popover: state.popover
+  };
+};
+export default connect(
+  mapStateToProps,
+  { openForm }
+)(ContactsSection);

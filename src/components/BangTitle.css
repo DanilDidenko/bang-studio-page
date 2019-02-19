@@ -1,7 +1,8 @@
 .bang-title {
-  font-size: 20px;
+  font-size: calc(12px + 0.5vw);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   color: white;
   text-align: center;
   font-family: "Roboto", sans-serif;
@@ -9,8 +10,11 @@
   line-height: 1.25;
 }
 
+.bang-title-image {
+  height: calc(50px + 1vw);
+}
 @media screen and (max-width: 1000px) {
-    .bang-title {
+  /* .bang-title {
         display: none;
-    }
+    } */
 }
