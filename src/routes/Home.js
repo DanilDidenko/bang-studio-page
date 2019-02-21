@@ -15,10 +15,10 @@ export default class Home extends React.Component {
   currentSection;
   scrollAvalible = true;
   prevTime;
-  firstSection;
   scrollings = [];
   scrollSctions = [];
   delay = false;
+  prevScrollTime;
 
   componentDidMount() {
     this.sections.forEach((section, index) => {
@@ -29,13 +29,12 @@ export default class Home extends React.Component {
       ) {
       }
     });
-    console.log(this.sections);
 
     this.handleResize();
     window.addEventListener("resize", this.handleResize.bind(this));
-
+    this.test(this.props.location);
     this.scubcription = this.props.history.listen((location, action) => {
-      this.test();
+      this.test(location);
     });
   }
 
@@ -45,8 +44,6 @@ export default class Home extends React.Component {
 
   detectActiveSection() {
     let currentScrollOffset = window.innerHeight / 2;
-    let currentWindow;
-    // Scroll reach the target
     this.scrollSctions.forEach((elem, index) => {
       if (
         currentScrollOffset < elem.getBoundingClientRect().bottom &&
@@ -63,14 +60,14 @@ export default class Home extends React.Component {
     } else {
       if (this.scrollAvalible) {
         this.scrollAvalible = false;
-        this.detectActiveSection();
-        setTimeout(() => {
-          this.scrollSctions[this.currentSection].scrollIntoView({
-            block: "start"
-          });
-        });
       }
     }
+    this.detectActiveSection();
+    setTimeout(() => {
+      this.scrollSctions[this.currentSection].scrollIntoView({
+        block: "start"
+      });
+    });
   }
 
   MouseWheelHandler(e) {
@@ -112,20 +109,16 @@ export default class Home extends React.Component {
       }
     }
   }
-  test() {
-    let hashSection = this.sections.indexOf(
-      this.props.location.hash.replace(/^#/, "")
-    );
-    console.log(hashSection);
-    if (hashSection > 0) {
-      console.log(this);
-      setTimeout(() => {
-        this.scrollSctions[hashSection].scrollIntoView({
-          block: "start",
-          behavior: "smooth"
-        });
+  test(location) {
+    let hashSection = this.sections.indexOf(location.hash.replace(/^#/, ""));
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: this.scrollSctions[hashSection].offsetTop,
+        behavior: "smooth"
       });
-    }
+      this.currentSection = hashSection;
+    });
   }
 
   render() {
@@ -134,12 +127,6 @@ export default class Home extends React.Component {
         className="transition-item"
         onWheel={this.MouseWheelHandler.bind(this)}
       >
-        {/* <ReactPageScroller
-          pageOnChange={page => {
-            this.handleScroll(page);
-          }}
-          ref={c => (this.reactPageScroller = c)}
-        >   </ReactPageScroller> */}
         <MainHeader />
         <AboutSection />
         <PortfolioSection />

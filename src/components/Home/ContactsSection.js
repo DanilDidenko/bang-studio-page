@@ -35,10 +35,16 @@ class ContactsSection extends React.Component {
             <h3 onClick={this.props.openForm.bind(this)} className="contact-us">
               СВЯЖИТЕСЬ С НАМИ
             </h3>
-            <div className="contact-email">info@bang.studio</div>
+            <p className="contact-email">
+              <a href="mailto:info@bang.studio">info@bang.studio</a>
+            </p>
             <div>
-              <p className="contact-telegram">Telegram</p>
-              <p className="contact-phone">+38(099)02-39-902</p>
+              <p className="contact-telegram">
+                <a href="tg://resolve?domain=380990239902">Telegram</a>
+              </p>
+              <p className="contact-phone">
+                <a href="tel:+38(099)02-39-902">+38(099)02-39-902</a>
+              </p>
             </div>
           </div>
           <div className="media">

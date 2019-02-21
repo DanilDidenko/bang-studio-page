@@ -13,10 +13,21 @@ class PopoverMenu extends React.Component {
       pathname: "/about"
     });
   };
+
+  state = {
+    name: "",
+    company: "",
+    email: "",
+    pahone: "",
+    formErrors: { email: "", phone: "" },
+    emailValid: false,
+    phoneValid: false,
+    formValid: false
+  };
   renderMenu() {
     return (
       <>
-        <Link to={{ pathname: "/about" }} style={select}>
+        <Link to={{ pathname: "/", hash: "#about" }} style={select}>
           <div
             className="option"
             onClick={this.props.closePopover}
@@ -30,7 +41,7 @@ class PopoverMenu extends React.Component {
           onClick={this.props.closePopover}
           style={select}
         >
-          <Link to={"/contact"} style={select}>
+          <Link to={{ pathname: "/", hash: "#contacts" }} style={select}>
             КОНТАКТЫ
           </Link>
         </div>
@@ -47,36 +58,88 @@ class PopoverMenu extends React.Component {
     );
   }
 
+  handleChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value }, () => {
+      this.validateField(name, value);
+    });
+  }
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let emailValid = this.state.emailValid;
+    let phoneValid = this.state.phoneValid;
+    switch (fieldName) {
+      case "email":
+        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        fieldValidationErrors.email = emailValid ? "" : " is invalid";
+        break;
+      case "phone":
+        phoneValid = value.match(
+          /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/
+        );
+        fieldValidationErrors.phone = phoneValid ? "" : " is too short";
+        break;
+      default:
+        break;
+    }
+    this.setState(
+      {
+        formErrors: fieldValidationErrors,
+        emailValid: emailValid,
+        phoneValid: phoneValid
+      },
+      this.validateForm
+    );
+  }
+
+  validateForm() {
+    this.setState({
+      formValid: this.state.emailValid && this.state.phoneValid
+    });
+    console.log(this.state);
+  }
+
   renderForm() {
     return (
-      <Fade>
-        <form action="/action_page.php">
-          <label for="fname">First Name</label>
+      <form>
+        <div className="form-col">
+          <input
+            value={this.state.name}
+            name="name"
+            onChange={this.handleChange.bind(this)}
+            placeholder="Ваше имя.."
+          />
           <input
             type="text"
-            id="fname"
-            name="firstname"
-            placeholder="Your name.."
+            value={this.state.company}
+            name="company"
+            onChange={this.handleChange.bind(this)}
+            placeholder="Ваша компания.."
           />
-
-          <label for="lname">Last Name</label>
+        </div>
+        <div className="form-col">
           <input
             type="text"
-            id="lname"
-            name="lastname"
-            placeholder="Your last name.."
+            value={this.state.email}
+            name="email"
+            onChange={this.handleChange.bind(this)}
+            placeholder="Ваш email.."
           />
-
-          <label for="country">Country</label>
-          <select id="country" name="country">
-            <option value="australia">Australia</option>
-            <option value="canada">Canada</option>
-            <option value="usa">USA</option>
-          </select>
-
-          <input type="submit" value="Submit" />
-        </form>
-      </Fade>
+          <input
+            type="text"
+            value={this.state.phone}
+            name="phone"
+            onChange={this.handleChange.bind(this)}
+            placeholder="Ваша телефон.."
+          />
+        </div>
+        <div className="form-col">
+          <textarea id="fmeassage" placeholder="Ваше сообщение.." />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
     );
   }
 

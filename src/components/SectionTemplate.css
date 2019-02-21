@@ -44,17 +44,50 @@
   line-height: 1.2;
   letter-spacing: normal;
   text-align: left;
-  font-family: "Roboto", sans-serif;
 }
 
 .full-page-section-content {
-  position: relative;
   overflow: hidden;
   flex-grow: 4;
 }
 
 .section-select-menu {
+  width: 100px;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 0.1;
+}
 
+.select-section {
+  position: relative;
+  margin: 5px 0;
+}
+
+.option-text {
+  position: absolute;
+  left: -100px;
+  transition: left 0.3s;
+}
+.option-number {
+  position: absolute;
+ 
+  left: 0;
+  color: red; transition: left 0.1s ease 0.25s;
+
+  /* transition: none; */
+}
+
+.overed-select-section > .option-text {
+  left: 0;
+}
+
+.overed-select-section > .option-number {
+  transition: none;
+  left: -30px;
+}
+
+.option-text {
+  position: absolute;
 }
 
 @media screen and (min-width: 750px) {
@@ -75,6 +108,6 @@
   }
 
   .section-select-menu {
-  display: none;
+    display: none;
   }
 }

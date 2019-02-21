@@ -26,7 +26,7 @@ export default class PortfolioSection extends Component {
         sectionSelection={true}
         activeSection="#portfolio"
         sectionStyle={{
-          backgroundColor: "#ffffff",
+          backgroundColor: "#f1f1f1",
           color: "#131116",
           height: "100vh",
           width: "100vw"

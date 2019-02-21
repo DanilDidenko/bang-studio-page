@@ -9,29 +9,32 @@ export default class AboutSection extends React.Component {
   render() {
     return (
       <SectionTemplate
-        id ='about'
+        id="about"
         sectionSelection={true}
-        sectionStyle={{ backgroundColor: "#ffffff", color:'#131116' ,  height: '100vh',
-        width: '100vw'}}
+        sectionStyle={{
+          backgroundColor: "#ffffff",
+          color: "#131116",
+          height: "100vh",
+          width: "100vw"
+        }}
         downSectionPath="#portfolio"
         activeSection="#about"
       >
-        <div className="about-content">
-          <Fade left>
+        <Fade left>
+          <div className="about-content">
             <h2 className="about-title">О НАС</h2>
-          </Fade>
-          <Fade right>
-            <div className="about-info">
+        
+            <div right className="about-info">
               Веб студия BANG была основана в 2018 году двумя студентами ХНТУ
               которые любили веб разработку и ставили себе цель добиться
-              совершенства в сфере разрабоотки веб сайтов. Мы создаем веб сайты
+              совершенства в сфере разрабоотки веб сайтов. <br/>Мы создаем веб сайты
               которые решают задачи клиентов здесь и сейчас.
             </div>
-          </Fade>
-          <div className="more-button">
-            <span>Узнать больше</span>
+            <div className="more-button">
+              <span>Узнать больше</span>
+            </div>
           </div>
-        </div>
+        </Fade>
       </SectionTemplate>
     );
   }

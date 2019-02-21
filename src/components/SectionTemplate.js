@@ -7,10 +7,10 @@ import { Link } from "react-router-dom";
 
 class SectionTemplate extends React.Component {
   sections = [
-    { hash: "", name: "Bang studio" },
-    { hash: "#about", name: "Портфолио" },
+    { hash: "#header", name: "Bang studio" },
+    { hash: "#about", name: "О нас" },
     { hash: "#portfolio", name: "Портфолио" },
-    { hash: "#contact", name: "Контакты" }
+    { hash: "#contacts", name: "Контакты" }
   ];
 
   state = {
@@ -38,10 +38,24 @@ class SectionTemplate extends React.Component {
             }
           >
             <li
-              onMouseEnter={this.handleMouseOver.bind(this, index)}
+              className={`select-section ${
+                this.state.overedOption === index ? "overed-select-section" : ""
+              }`}
               onMouseLeave={this.handleMouseOver.bind(this, null)}
-              className={`track m_${index + 1}`}
             >
+              <div
+                onMouseEnter={() => {
+                  this.handleMouseOver(index);
+                }}
+                style={{
+                  width: "40px",
+                  height: "100%",
+                  left: 0,
+                  top: 0,
+                  position: "absolute",
+                  zIndex: 100
+                }}
+              />
               <span className="option-number">{`0${index + 1}`}</span>
               <span className="option-text">{element.name}</span>
             </li>

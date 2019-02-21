@@ -45,7 +45,6 @@ export default class MainHeader extends React.Component {
       >
         {isBrowser ? (
           <div
-
             className="animation-container"
             style={{ width: "100%", height: "100%" }}
           />
