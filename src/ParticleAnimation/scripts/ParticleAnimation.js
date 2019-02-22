@@ -62,6 +62,7 @@ export default class ParticleAnimation {
 
   resize() {
     if (this.webgl) this.webgl.resize();
+
   }
 
   keyup(e) {

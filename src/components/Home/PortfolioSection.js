@@ -4,8 +4,9 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import SectionTemplate from "../SectionTemplate";
 import Fade from "react-reveal/Fade";
 import PortfolioCard from "../PortfolioCard";
+import { connect } from "react-redux";
 
-export default class PortfolioSection extends Component {
+class PortfolioSection extends Component {
   state = {
     portfolioItems: [
       {
@@ -18,6 +19,9 @@ export default class PortfolioSection extends Component {
     ]
   };
 
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
     return (
       <SectionTemplate
@@ -29,7 +33,6 @@ export default class PortfolioSection extends Component {
           backgroundColor: "#f1f1f1",
           color: "#131116",
           height: "100vh",
-          width: "100vw"
         }}
       >
         <Fade left>
@@ -68,3 +71,10 @@ const container = {
 
   boxSizing: "border-box"
 };
+
+const mapStateToProps = state => {
+  return {
+    portfolio: state.portfolio
+  };
+};
+export default connect(mapStateToProps)(PortfolioSection);

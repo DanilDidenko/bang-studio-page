@@ -27,7 +27,7 @@ class App extends Component {
             "wrapper " + (this.props.popover.isOpen ? "scroll-lock" : "")
           }
         >
-      <PopoverMenu /> 
+          <PopoverMenu />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />

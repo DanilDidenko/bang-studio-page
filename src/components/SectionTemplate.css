@@ -7,13 +7,15 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  min-width: 400px;
   min-height: 500px;
+  width: 100%
+
 }
 
 .nav-column {
   height: 100%;
   display: flex;
+  flex-grow: 0;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
@@ -21,6 +23,7 @@
 
 .bang-logo {
   width: calc(60px + 1vw);
+  height: 40px;
 }
 
 .arrow {
@@ -49,57 +52,89 @@
 .full-page-section-content {
   overflow: hidden;
   flex-grow: 4;
+  position: relative;
 }
 
 .section-select-menu {
   width: 100px;
-  overflow: hidden;
+  height: 150px;
   font-size: 18px;
   font-weight: 0.1;
+  display: flex;
+  flex-direction: column;
 }
 
 .select-section {
-  position: relative;
+  flex-grow: 1;
+  color: #e6e6e6;
   margin: 5px 0;
+  display: flex;
+  position: relative;
 }
 
+.select-section-active {
+  color: black;
+}
+
+.select-section-active::after {
+  content: "";
+  background-color: black;
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: -15px;
+}
 .option-text {
   position: absolute;
-  left: -100px;
-  transition: left 0.3s;
+  bottom: -30px;
+  transition: bottom 0.3s;
+  color: black;
 }
 .option-number {
   position: absolute;
- 
-  left: 0;
-  color: red; transition: left 0.1s ease 0.25s;
+  bottom: 0;
+  top: 0;
+  transition: top 0.3s;
 
   /* transition: none; */
 }
 
-.overed-select-section > .option-text {
-  left: 0;
+.overed-select-section > a > .option-text {
+  bottom: 0;
 }
 
-.overed-select-section > .option-number {
-  transition: none;
-  left: -30px;
-}
-
-.option-text {
-  position: absolute;
+.overed-select-section > a > .option-number {
+  top: -30px;
 }
 
 @media screen and (min-width: 750px) {
 }
 @media screen and (min-width: 750px) {
+  .horizontal-menu-button {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 750px) {
+  .verical-menu-button {
+    display: none;
+  }
+
+  .bang-text-botom {
+    display: none;
+  }
+
   .nav-column {
     flex-direction: row;
     flex-grow: 0;
     height: initial;
+  }
+
+  .right-nav-column {
+    justify-content: center;
   }
 
   .full-page-section {

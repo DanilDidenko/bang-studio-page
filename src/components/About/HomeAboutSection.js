@@ -1,7 +1,6 @@
 import React from "react";
 import SectionTemplate from "../SectionTemplate";
 
-
 export default class HomeAboutSection extends React.Component {
   state = {};
   render() {

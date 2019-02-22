@@ -154,9 +154,16 @@ class PopoverMenu extends React.Component {
         <span className="close-btn" onClick={this.props.closePopover}>
           ×{" "}
         </span>
-        {this.props.popover.type === "menu"
-          ? this.renderMenu()
-          : this.renderForm()}
+        {this.props.popover.type === "menu" && this.props.popover.isOpen ? (
+          this.renderMenu()
+        ) : (
+          <></>
+        )}
+        {this.props.popover.type === "form" && this.props.popover.isOpen ? (
+          this.renderForm()
+        ) : (
+          <></>
+        )}
       </div>
     );
   }

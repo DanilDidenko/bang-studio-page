@@ -27,39 +27,38 @@ class SectionTemplate extends React.Component {
   renderSelectionList() {
     if (this.props.sectionSelection === true) {
       let list = this.sections.map((element, index) => {
+        const active = this.props.id === element.hash.slice(1);
         return (
-          <Link
-            to={{ pathname: "/", hash: element.hash }}
-            key={index}
-            className={
-              this.props.activeSection === element.hash
-                ? `active selection-option`
-                : `selection-option`
-            }
+          <li
+            className={`select-section ${
+              active ? "select-section-active" : ""
+            } ${
+              this.state.overedOption === index && !active
+                ? "overed-select-section"
+                : ""
+            } `}
+            onMouseLeave={this.handleMouseOver.bind(this, null)}
+            onMouseEnter={() => {
+              this.handleMouseOver(index);
+            }}
           >
-            <li
-              className={`select-section ${
-                this.state.overedOption === index ? "overed-select-section" : ""
-              }`}
-              onMouseLeave={this.handleMouseOver.bind(this, null)}
+            <Link
+              to={{ pathname: "/", hash: element.hash }}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                position: "relative",
+                overflow: "hidden"
+              }}
+              key={index}
             >
-              <div
-                onMouseEnter={() => {
-                  this.handleMouseOver(index);
-                }}
-                style={{
-                  width: "40px",
-                  height: "100%",
-                  left: 0,
-                  top: 0,
-                  position: "absolute",
-                  zIndex: 100
-                }}
-              />
-              <span className="option-number">{`0${index + 1}`}</span>
+              <span
+                className={`option-number ${active ? "active" : ""}`}
+              >{`0${index + 1}`}</span>
               <span className="option-text">{element.name}</span>
-            </li>
-          </Link>
+            </Link>
+          </li>
         );
       });
 
@@ -79,6 +78,12 @@ class SectionTemplate extends React.Component {
         <div className="nav-column left-nav-column">
           <img className="bang-logo" src="./img/svg/BANG.svg" />
           {this.renderSelectionList()}
+          <div
+            className="menu-button horizontal-menu-button"
+            onClick={this.props.openMenu}
+          >
+            MENU
+          </div>
           <div className="bang-text-botom">
             BANG <br />
             WEB STUDIO
@@ -91,7 +96,12 @@ class SectionTemplate extends React.Component {
           {this.props.children}
         </div>
         <div className="nav-column right-nav-column">
-          <div onClick={this.props.openMenu}>MENU</div>
+          <div
+            className="menu-button verical-menu-button"
+            onClick={this.props.openMenu}
+          >
+            MENU
+          </div>
           {this.props.downSectionPath ? (
             <Link className="arrow arrow-side" to={this.props.downSectionPath}>
               <img className="" src="./img/svg/arrow-light.svg" />

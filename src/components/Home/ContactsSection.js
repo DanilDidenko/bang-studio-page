@@ -18,9 +18,8 @@ class ContactsSection extends React.Component {
           backgroundColor: "#ffffff",
           color: "#131116",
           height: "100vh",
-          width: "100vw"
         }}
-        downSectionPath="/"
+        downSectionPath="/#header"
         style={{
           display: "flex",
           flexDirection: "column",

@@ -3,6 +3,32 @@ import { combineReducers } from "redux";
 const initialState = {
   popover: { isOpen: false, type: "menu" }
 };
+
+const portfolio = () => {
+  return [
+    {
+      header: "Lawyers Office",
+      text: `Корпоративынй сайт который был разработан для адвокатского фирмы в городе Херсон.
+      <br/><br/>
+  При разработке сайта были учтены все пожелания клиента и использованы передовые технологии.`,
+      img: "./img/portfolio-image-1.png"
+    },
+    {
+      header: "Lawyers Office",
+      text: `Корпоративынй сайт который был разработан для адвокатского фирмы в городе Херсон.
+      <br/><br/>
+  При разработке сайта были учтены все пожелания клиента и использованы передовые технологии.`,
+      img: "./img/portfolio-image-1.png"
+    },
+    {
+      header: "Lawyers Office",
+      text: `Корпоративынй сайт который был разработан для адвокатского фирмы в городе Херсон.
+<br/><br/>
+  При разработке сайта были учтены все пожелания клиента и использованы передовые технологии.`,
+      img: "./img/portfolio-image-1.png"
+    }
+  ];
+};
 const popoverStateReducer = (state = initialState, action) => {
   switch (action.type) {
     case "MENU_OPENED":
@@ -29,7 +55,8 @@ const popoverStateReducer = (state = initialState, action) => {
 };
 
 const rootReducer = combineReducers({
-  popover: popoverStateReducer
+  popover: popoverStateReducer,
+  portfolio: portfolio
 });
 
 export default rootReducer;

@@ -43,6 +43,7 @@ export default class WebGLView {
       this.camera,
       this.renderer.domElement
     );
+    console.log(this.interactive)
   }
 
   initParticles() {

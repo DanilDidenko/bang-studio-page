@@ -36,6 +36,9 @@ export default class Home extends React.Component {
     this.scubcription = this.props.history.listen((location, action) => {
       this.test(location);
     });
+    window.addEventListener("keydown", e => {
+      this.keyDownHandler(e);
+    });
   }
 
   componentWillUnmount() {
@@ -62,6 +65,7 @@ export default class Home extends React.Component {
         this.scrollAvalible = false;
       }
     }
+    console.log(this.scrollAvalible);
     this.detectActiveSection();
     setTimeout(() => {
       this.scrollSctions[this.currentSection].scrollIntoView({
@@ -71,47 +75,89 @@ export default class Home extends React.Component {
   }
 
   MouseWheelHandler(e) {
+    if (this.scrollAvalible) return;
+
+    e.preventDefault();
     if (Math.abs(e.deltaY) != 0) {
-      if (!this.scrollAvalible) {
-        e.preventDefault();
-        if (this.delay) return;
-        var delta = e.deltaY;
-        let scrollAllowed = false;
+      if (this.delay) return;
+      var delta = e.deltaY;
+      let scrollAllowed = false;
 
-        if (delta > 0 && this.currentSection < this.scrollSctions.length - 1) {
-          scrollAllowed = true;
-          this.currentSection++;
-        } else if (delta < 0 && this.currentSection > 0) {
-          scrollAllowed = true;
-          this.currentSection--;
-        }
+      if (delta > 0 && this.currentSection < this.scrollSctions.length - 1) {
+        scrollAllowed = true;
+        this.currentSection++;
+      } else if (delta < 0 && this.currentSection > 0) {
+        scrollAllowed = true;
+        this.currentSection--;
+      }
 
-        if (scrollAllowed) {
-          this.delay = true;
+      if (scrollAllowed) {
+        this.delay = true;
 
-          this.scrollSctions[this.currentSection].scrollIntoView({
-            block: "start",
-            behavior: "smooth"
-          });
+        window.scrollTo({
+          top: this.scrollSctions[this.currentSection].offsetTop,
+          behavior: "smooth"
+        });
 
-          window.onscroll = event => {
-            if (
-              this.scrollSctions[this.currentSection].getBoundingClientRect()
-                .top === 0
-            ) {
-              setTimeout(() => {
-                this.delay = false;
-              }, 500);
-              window.onscroll = null;
-            }
-          };
-        }
+        window.onscroll = event => {
+          if (
+            this.scrollSctions[this.currentSection].getBoundingClientRect()
+              .top === 0
+          ) {
+            setTimeout(() => {
+              this.delay = false;
+            }, 500);
+            window.onscroll = null;
+          }
+        };
       }
     }
   }
+
+  keyDownHandler(e) {
+    if (e.key != "ArrowDown" && e.key != "ArrowUp") return;
+
+    if (this.scrollAvalible) return;
+
+    e.preventDefault();
+    if (this.delay) return;
+    let scrollAllowed = false;
+    if (
+      e.key === "ArrowDown" &&
+      this.currentSection < this.scrollSctions.length - 1
+    ) {
+      scrollAllowed = true;
+      this.currentSection++;
+    } else if (e.key === "ArrowUp" && this.currentSection > 0) {
+      scrollAllowed = true;
+      this.currentSection--;
+    }
+
+    if (!scrollAllowed) return;
+    this.delay = true;
+
+    window.scrollTo({
+      top: this.scrollSctions[this.currentSection].offsetTop,
+      behavior: "smooth"
+    });
+
+    window.onscroll = event => {
+      if (
+        this.scrollSctions[this.currentSection].getBoundingClientRect().top ===
+        0
+      ) {
+        setTimeout(() => {
+          this.delay = false;
+        });
+        window.onscroll = null;
+      }
+    };
+  }
+
   test(location) {
     let hashSection = this.sections.indexOf(location.hash.replace(/^#/, ""));
-
+    if (hashSection < 0) return;
+    this.delay = true;
     setTimeout(() => {
       window.scrollTo({
         top: this.scrollSctions[hashSection].offsetTop,
@@ -119,6 +165,17 @@ export default class Home extends React.Component {
       });
       this.currentSection = hashSection;
     });
+    window.onscroll = event => {
+      if (
+        this.scrollSctions[this.currentSection].getBoundingClientRect().top ===
+        0
+      ) {
+        setTimeout(() => {
+          this.delay = false;
+        });
+        window.onscroll = null;
+      }
+    };
   }
 
   render() {
@@ -126,6 +183,7 @@ export default class Home extends React.Component {
       <div
         className="transition-item"
         onWheel={this.MouseWheelHandler.bind(this)}
+        tabIndex="0"
       >
         <MainHeader />
         <AboutSection />
