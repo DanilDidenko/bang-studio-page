@@ -44,7 +44,7 @@
 
 .more-button {
   width: calc(200px + 5vw);
-  height: 70px;
+  height: 60px;
   border: 1px solid;
   position: relative;
   cursor: pointer;

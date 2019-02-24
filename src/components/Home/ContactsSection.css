@@ -57,7 +57,7 @@
 }
 
 .contact-telegram {
-  font-size: 14px;
+  font-size: calc(14px + 0.3vw);
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -67,7 +67,7 @@
 }
 
 .contact-phone {
-  font-size: 20px;
+  font-size: calc(16px + 0.3vw);
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;

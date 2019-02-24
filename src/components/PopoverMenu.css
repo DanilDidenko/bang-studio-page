@@ -28,12 +28,19 @@
 
 .close-btn {
   position: absolute;
+  display: block;
+  font-size: 30px;
   right: 30px;
   top: 30px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
 .close-btn:hover {
+  color: gold;
 }
 
 .popover {
@@ -42,6 +49,7 @@
   position: fixed;
   width: 100vw;
   height: 100vh;
+  min-width: 360px;
   background-color: #f3f3f3;
   z-index: 30;
   top: 0;

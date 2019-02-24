@@ -15,7 +15,7 @@ export default class AboutSection extends React.Component {
         sectionStyle={{
           backgroundColor: "#ffffff",
           color: "#131116",
-          height: "100vh",
+          height: "100vh"
         }}
         downSectionPath="#portfolio"
         activeSection="#about"

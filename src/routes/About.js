@@ -7,19 +7,18 @@ import ContactsSection from "../components/Home/ContactsSection";
 export default class About extends React.Component {
   state = {};
 
-  componentDidMount(){
-    window.scrollTo(0, 0)
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
-  
-  
+
   render() {
     return (
-      <div className="about-wrapper">
+      <>
         <HomeAboutSection />
         <AboutStory />
         <AboutTeamSection />
         <ContactsSection />
-      </div>
+      </>
     );
   }
 }

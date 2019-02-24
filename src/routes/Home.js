@@ -23,11 +23,6 @@ export default class Home extends React.Component {
   componentDidMount() {
     this.sections.forEach((section, index) => {
       this.scrollSctions.push(document.getElementById(section));
-      if (
-        window.pageYOffset >=
-        this.scrollSctions[index].getBoundingClientRect().top
-      ) {
-      }
     });
 
     this.handleResize();
@@ -38,6 +33,10 @@ export default class Home extends React.Component {
     });
     window.addEventListener("keydown", e => {
       this.keyDownHandler(e);
+    });
+
+    window.addEventListener("wheel", e => {
+      this.MouseWheelHandler(e);
     });
   }
 
@@ -65,7 +64,6 @@ export default class Home extends React.Component {
         this.scrollAvalible = false;
       }
     }
-    console.log(this.scrollAvalible);
     this.detectActiveSection();
     setTimeout(() => {
       this.scrollSctions[this.currentSection].scrollIntoView({
@@ -157,6 +155,7 @@ export default class Home extends React.Component {
   test(location) {
     let hashSection = this.sections.indexOf(location.hash.replace(/^#/, ""));
     if (hashSection < 0) return;
+    if (hashSection === this.currentSection) return;
     this.delay = true;
     setTimeout(() => {
       window.scrollTo({
@@ -180,16 +179,12 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div
-        className="transition-item"
-        onWheel={this.MouseWheelHandler.bind(this)}
-        tabIndex="0"
-      >
+      <>
         <MainHeader />
         <AboutSection />
         <PortfolioSection />
         <ContactsSection />
-      </div>
+      </>
     );
   }
 }

@@ -7,21 +7,27 @@ import PortfolioCard from "../PortfolioCard";
 import { connect } from "react-redux";
 
 class PortfolioSection extends Component {
-  state = {
-    portfolioItems: [
-      {
-        title: "Lawyer office",
-        description:
-          "Корпоративынй сайт который был разработан для адвокатского фирмы в городе Херсон. При разработке сайта были учтены все пожелания клиента и использованы передовые технологии.",
-        img1: "",
-        img2: ""
-      }
-    ]
-  };
+  state = {};
 
   componentDidMount() {
-    console.log(this.props);
+    this.setState({
+      activeSlide: Math.floor(this.props.portfolio.length / 2)
+    });
+
+    console.log(this.props.portfolio);
   }
+
+  swipeSlider(type) {
+    let slide = this.state.activeSlide;
+
+    if (type === "+") {
+      slide < this.props.portfolio.length - 1 ? slide++ : (slide = 0);
+    } else if (type === "-") {
+      slide > 0 ? slide-- : (slide = this.props.portfolio.length - 1);
+    }
+    this.setState({ activeSlide: slide });
+  }
+
   render() {
     return (
       <SectionTemplate
@@ -32,44 +38,56 @@ class PortfolioSection extends Component {
         sectionStyle={{
           backgroundColor: "#f1f1f1",
           color: "#131116",
-          height: "100vh",
+          height: "100vh"
+        }}
+        contentStyle={{
+          display: "flex",
+          flexDirection: "column"
         }}
       >
-        <Fade left>
-          <h2>ПОРТФОЛИО</h2>
-        </Fade>
-
-        <CarouselProvider
-          style={{ width: "100%", height: "100%" }}
-          totalSlides={3}
-          naturalSlideWidth={100}
-          naturalSlideHeight={100}
+        <div
+          style={{
+            flexGrow: 2,
+            overflow: "hidden",
+            position: "relative"
+          }}
         >
-          <Slider style={container}>
-            <Slide index={0} style={{ backgroundColor: "red" }}>
-              <PortfolioCard />
-            </Slide>
-            <Slide index={1}>
-              <PortfolioCard />
-            </Slide>
-            <Slide index={2}>
-              <PortfolioCard />
-            </Slide>
-          </Slider>
-          <DotGroup />
-        </CarouselProvider>
+          <div
+            onClick={this.swipeSlider.bind(this, "-")}
+            className="slider-button prev-button"
+          />
+          <div
+            onClick={this.swipeSlider.bind(this, "+")}
+            className="slider-button next-button"
+          />
+          {this.props.portfolio.map((elem, index) => {
+            return (
+              <PortfolioCard
+                className={`slider-slide ${
+                  this.state.activeSlide > index ? "previous-slide" : ""
+                }
+                ${this.state.activeSlide < index ? "next-slide" : ""} ${
+                  this.state.activeSlide === index ? "current-slide" : ""
+                }`}
+                title={elem.header}
+                description={elem.text}
+                imgSrc={elem.img}
+              />
+            );
+          })}
+        </div>
+        <div />
       </SectionTemplate>
     );
   }
 }
 
 const container = {
-  boxSizing: "content-box",
-  width: "100%",
-  height: "100%",
-  margin: "0 200px",
-
-  boxSizing: "border-box"
+  // boxSizing: "content-box",
+  // width: "100%",
+  // height: "100%",
+  // margin: "0 200px",
+  // boxSizing: "border-box"
 };
 
 const mapStateToProps = state => {

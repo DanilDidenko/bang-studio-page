@@ -50,7 +50,6 @@ export default class InteractiveControls extends EventEmitter {
     this.handlerMove = this.onMove.bind(this);
     this.handlerUp = this.onUp.bind(this);
     this.handlerLeave = this.onLeave.bind(this);
-    console.log(this.el);
     if (this.browser.mobile) {
       this.el.addEventListener("touchstart", this.handlerDown, passiveEvent);
       this.el.addEventListener("touchmove", this.handlerMove, passiveEvent);
@@ -88,11 +87,9 @@ export default class InteractiveControls extends EventEmitter {
       };
     } else {
       this.rect = this.el.getBoundingClientRect();
-      console.log(this.rect)
       let rect = { y: this.rect.y + window.scrollY, x: this.rect.x, width:this.rect.width, height:this.rect.height };
       this.rect = rect;
-      console.log(this.rect)
-      // console.log(this.rect);
+
     }
   }
 

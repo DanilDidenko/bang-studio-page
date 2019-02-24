@@ -38,8 +38,7 @@ export default class MainHeader extends React.Component {
         sectionStyle={{
           backgroundColor: "#131116",
           color: "white",
-          height: "100vh",
-          width: "100vw"
+          height: "100vh"
         }}
         animation={true}
       >
