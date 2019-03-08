@@ -4,6 +4,7 @@ import AboutSection from "../components/Home/AboutSection";
 import PortfolioSection from "../components/Home/PortfolioSection";
 import ContactsSection from "../components/Home/ContactsSection";
 import { isMobile } from "react-device-detect";
+import Swipe from "react-easy-swipe";
 
 export default class Home extends React.Component {
   sections = ["header", "about", "portfolio", "contacts"];
@@ -27,10 +28,11 @@ export default class Home extends React.Component {
 
     this.handleResize();
     window.addEventListener("resize", this.handleResize.bind(this));
-    this.test(this.props.location);
+
     this.scubcription = this.props.history.listen((location, action) => {
       this.test(location);
     });
+    this.test(this.props.location);
     window.addEventListener("keydown", e => {
       this.keyDownHandler(e);
     });
@@ -38,6 +40,8 @@ export default class Home extends React.Component {
     window.addEventListener("wheel", e => {
       this.MouseWheelHandler(e);
     });
+
+    console.log(this.currentSection);
   }
 
   componentWillUnmount() {
@@ -51,13 +55,19 @@ export default class Home extends React.Component {
         currentScrollOffset < elem.getBoundingClientRect().bottom &&
         elem.getBoundingClientRect().top < currentScrollOffset
       ) {
-        this.currentSection = index;
+        if (this.currentSection != index) {
+          this.currentSection = index;
+          this.props.history.push({
+            pathname: "/",
+            hash: "#" + this.sections[this.currentSection]
+          });
+        }
       }
     });
   }
 
   handleResize(e) {
-    if (window.innerHeight < 700 || window.innerWidth < 1100 || isMobile) {
+    if (window.innerHeight < 700 || window.innerWidth < 1100) {
       this.scrollAvalible = true;
     } else {
       if (this.scrollAvalible) {
@@ -73,84 +83,66 @@ export default class Home extends React.Component {
   }
 
   MouseWheelHandler(e) {
-    if (this.scrollAvalible) return;
+    if (this.scrollAvalible) {
+      this.detectActiveSection();
+      return;
+    }
 
     e.preventDefault();
-    if (Math.abs(e.deltaY) != 0) {
-      if (this.delay) return;
-      var delta = e.deltaY;
-      let scrollAllowed = false;
+    if (this.delay) return;
+    console.log("scroll");
+    if (Math.abs(e.deltaY) === 0) return;
 
-      if (delta > 0 && this.currentSection < this.scrollSctions.length - 1) {
-        scrollAllowed = true;
-        this.currentSection++;
-      } else if (delta < 0 && this.currentSection > 0) {
-        scrollAllowed = true;
-        this.currentSection--;
-      }
+    var delta = e.deltaY;
+    let scrollAllowed = false;
+    let sectionToScroll;
 
-      if (scrollAllowed) {
-        this.delay = true;
-
-        window.scrollTo({
-          top: this.scrollSctions[this.currentSection].offsetTop,
-          behavior: "smooth"
-        });
-
-        window.onscroll = event => {
-          if (
-            this.scrollSctions[this.currentSection].getBoundingClientRect()
-              .top === 0
-          ) {
-            setTimeout(() => {
-              this.delay = false;
-            }, 500);
-            window.onscroll = null;
-          }
-        };
-      }
+    if (delta > 0 && this.currentSection < this.scrollSctions.length - 1) {
+      scrollAllowed = true;
+      sectionToScroll = this.currentSection + 1;
+    } else if (delta < 0 && this.currentSection > 0) {
+      scrollAllowed = true;
+      sectionToScroll = this.currentSection - 1;
     }
+
+    if (!scrollAllowed) return;
+    if (sectionToScroll === this.currentSection) return;
+    this.delay = true;
+    this.props.history.push({
+      pathname: "/",
+      hash: "#" + this.sections[sectionToScroll]
+    });
   }
 
   keyDownHandler(e) {
     if (e.key != "ArrowDown" && e.key != "ArrowUp") return;
-
     if (this.scrollAvalible) return;
-
     e.preventDefault();
     if (this.delay) return;
+    console.log(1);
     let scrollAllowed = false;
+    let sectionToScroll;
     if (
       e.key === "ArrowDown" &&
       this.currentSection < this.scrollSctions.length - 1
     ) {
       scrollAllowed = true;
-      this.currentSection++;
+      sectionToScroll = this.currentSection + 1;
     } else if (e.key === "ArrowUp" && this.currentSection > 0) {
       scrollAllowed = true;
-      this.currentSection--;
+      sectionToScroll = this.currentSection + -1;
     }
 
     if (!scrollAllowed) return;
-    this.delay = true;
+    if (sectionToScroll === this.currentSection) return;
 
-    window.scrollTo({
-      top: this.scrollSctions[this.currentSection].offsetTop,
-      behavior: "smooth"
+    this.props.history.push({
+      pathname: "/",
+      hash: "#" + this.sections[sectionToScroll]
     });
-
-    window.onscroll = event => {
-      if (
-        this.scrollSctions[this.currentSection].getBoundingClientRect().top ===
-        0
-      ) {
-        setTimeout(() => {
-          this.delay = false;
-        });
-        window.onscroll = null;
-      }
-    };
   }
+
+  swipeHandler(type) {}
 
   test(location) {
     let hashSection = this.sections.indexOf(location.hash.replace(/^#/, ""));
@@ -171,7 +163,7 @@ export default class Home extends React.Component {
       ) {
         setTimeout(() => {
           this.delay = false;
-        });
+        }, 500);
         window.onscroll = null;
       }
     };
@@ -179,12 +171,12 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <>
+      <Swipe onClick={e => console.log(e)} onSwipeUp={e => console.log(e)}>
         <MainHeader />
         <AboutSection />
         <PortfolioSection />
         <ContactsSection />
-      </>
+      </Swipe>
     );
   }
 }

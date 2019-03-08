@@ -21,19 +21,14 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div
-          onWheel={this.handleScroll.bind(this)}
-          className={
-            "wrapper " + (this.props.popover.isOpen ? "scroll-lock" : "")
-          }
-        >
+      <>
           <PopoverMenu />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/portfolio" component={Portfolio} />
           </Switch>
-        </div>
+</>
       </Router>
     );
   }
